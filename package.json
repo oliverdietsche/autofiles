@@ -1,6 +1,6 @@
 {
   "name": "@oldie/autofiles",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "description": "This script is used to automate file creation by using templates.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

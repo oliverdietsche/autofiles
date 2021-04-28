@@ -1,35 +1,53 @@
 #!/usr/bin/env node
 import { watch } from 'chokidar';
 import { readFileSync, unlinkSync } from 'fs';
-import { isDirEmpty, writeEntryFile, writeTemplateFiles } from './utils';
+import {
+  isDirEmpty,
+  isFileEmpty,
+  isPathSubdirOfDir,
+  splitPath,
+  writeEntryFile,
+  writeTemplateFiles
+} from './utils';
 
 const config: IConfigEntry[] = JSON.parse(
   readFileSync('./autofiles.json', 'utf8')
 );
 
-config.forEach(({ directory, folder, files, entryFile }) => {
-  const directoryRegex = new RegExp(`.*${directory}\/`);
-
+config.forEach(({ directory, folder, files, entryFile, includeSubdirs }) => {
   if (folder) {
     watch(directory)
       .on('addDir', (path) => {
-        const name = path.replace(directoryRegex, '');
-        const isSubdirectory = name.includes('/');
-        if (isSubdirectory || !isDirEmpty(path)) return;
-        writeTemplateFiles(files, name, path);
-        entryFile && writeEntryFile(directory, entryFile);
+        if (!includeSubdirs && isPathSubdirOfDir(path, directory)) return;
+        if (!isDirEmpty(path)) return;
+
+        const { pathToName, name } = splitPath(path);
+        writeTemplateFiles(files, pathToName, name, folder);
+        if (entryFile) writeEntryFile(pathToName, entryFile);
       })
-      .on('unlinkDir', () => entryFile && writeEntryFile(directory, entryFile));
+      .on('unlinkDir', (path) => {
+        if (!entryFile) return;
+        if (!includeSubdirs && isPathSubdirOfDir(path, directory)) return;
+        const { pathToName } = splitPath(path);
+        writeEntryFile(pathToName, entryFile);
+      });
   } else {
     watch(directory)
       .on('add', (path) => {
-        const name = path.replace(directoryRegex, '');
-        const isSubfile = name.includes('/');
-        const isEmptyFile = readFileSync(path, 'utf8') === '';
-        if (isSubfile || name === entryFile || !isEmptyFile) return;
-        writeTemplateFiles(files, name, directory);
+        if (!includeSubdirs && isPathSubdirOfDir(path, directory)) return;
+        if (!isFileEmpty(path)) return;
+        const { pathToName, name } = splitPath(path);
+        if (name === entryFile) return;
+
+        writeTemplateFiles(files, pathToName, name, folder);
         unlinkSync(path);
+        if (entryFile) writeEntryFile(pathToName, entryFile);
       })
-      .on('unlink', () => entryFile && writeEntryFile(directory, entryFile));
+      .on('unlink', (path) => {
+        if (!entryFile) return;
+        if (!includeSubdirs && isPathSubdirOfDir(path, directory)) return;
+        const { pathToName } = splitPath(path);
+        writeEntryFile(pathToName, entryFile);
+      });
   }
 });

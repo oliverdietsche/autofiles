@@ -15,4 +15,8 @@ interface IConfigEntry {
      * If defined, an entry file with this name will be created and updated.
      */
     entryFile?: string,
+    /**
+     * If true, subdirectories of the defined directory get watched as well.
+     */
+    includeSubdirs?: boolean,
 }
