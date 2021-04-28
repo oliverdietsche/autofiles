@@ -1,0 +1,24 @@
+{
+  "name": "@oldie/autofiles",
+  "version": "0.1.0",
+  "description": "This script is used to automate file creation by using templates.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "autofiles": "dist/index.js"
+  },
+  "scripts": {
+    "test": "echo \"No test specified\"",
+    "prepublish": "tsc"
+  },
+  "keywords": [],
+  "author": "Oliver Dietsche",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "15.0.1",
+    "typescript": "4.2.4"
+  },
+  "dependencies": {
+    "chokidar": "3.5.1"
+  }
+}
