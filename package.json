@@ -1,6 +1,6 @@
 {
-  "name": "@oldie/autofiles",
-  "version": "0.2.1",
+  "name": "autofiles",
+  "version": "1.0.0",
   "description": "This script is used to automate file creation by using templates.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,12 @@
     "test": "echo \"No test specified\"",
     "prepublish": "tsc"
   },
-  "keywords": [],
+  "keywords": [
+    "automation",
+    "efficiency",
+    "productivity",
+    "filesystem"
+  ],
   "author": "Oliver Dietsche",
   "license": "ISC",
   "devDependencies": {
