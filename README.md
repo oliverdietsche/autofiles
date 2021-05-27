@@ -8,11 +8,11 @@ The core functionality is reacting to the creation of files or folders in a spec
 
 > The installation can be made locally at project level. This has the advantage that every developer automatically installs the dependency when running `npm install` and can use it right away (when config and template files are committed).
 >
-> `npm install -D @oldie/autofiles`
+> `npm install -D autofiles`
 
 > If you prefer to install this dependency globally on your machine, you can do this using the following command. One usecase for this is, when you want to use this library without adding anything to the project itself. You probably want to gitignore the according config and template files if you do it this way.
 >
-> `npm install -g @oldie/autofiles`
+> `npm install -g autofiles`
 
 ## Configuration
 
