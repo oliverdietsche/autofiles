@@ -1,10 +1,10 @@
 {
   "name": "autofiles",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This script is used to automate file creation by using templates.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Oldie55/autofiles"
+    "url": "https://github.com/oliverdietsche/autofiles"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -22,10 +22,10 @@
     "filesystem"
   ],
   "author": "Oliver Dietsche",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "@types/node": "15.0.1",
-    "typescript": "4.2.4"
+    "@types/node": "15.6.1",
+    "typescript": "4.3.2"
   },
   "dependencies": {
     "chokidar": "3.5.1"
